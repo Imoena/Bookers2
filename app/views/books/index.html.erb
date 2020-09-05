@@ -1,0 +1,8 @@
+<h1>ここはTOPページです</h1>
+
+	<% @books.each do |book| %>
+	  <p>タイトル</p>
+	  <span><%= book.title %></span>
+	  <p>本文</p>
+	<span><%= book.body %></span>
+<% end %>
