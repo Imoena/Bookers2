@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h1>User info</h1>
+      <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "noimage.jpg", size:'60x60' %>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">name</th>
+                <td><%= @user.name %></td>
+            </tr>
+            <tr>
+              <th scope="row">introduction</th>
+                <td><%= @user.introduction %></td>
+            </tr>
+            <% if @user == current_user %>
+           </tbody>
+          </table>
+             <button type="button" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span><%= link_to "",  edit_user_path(current_user), class: "pull-right" %></button>
+            <% end %>
+      <h2>New book</h2>
+        <%= form_for(@book) do |f| %>
+          <h3>Title</h3>
+          <%= f.text_field :title %>
+          <h3>Opinion</h3>
+          <%= f.text_area :body %>
+          <%= f.submit 'Create Book' %>
+        <% end %>
+    </div>
