@@ -58,8 +58,8 @@
                 <th><%= @books.title %></th>
                 <th><%= @books.body %></th>
                   <% if @books.user == current_user %>
-                  <th><%= link_to "Edit", edit_book_path(@books) %> </th>
-                  <th><%= link_to "Destroy", book_path(@books), method: :delete %></th>
+                  <th><%= link_to "Edit", edit_book_path(@books), class: 'btn btn-success'%> </th>
+                  <th><%= link_to "Destroy", book_path(@books), class: 'btn btn-danger', method: :delete, "data-confirm" => "本当に消しますか?" %></th>
                 <% end %>
               </tr>
             </tbody>
