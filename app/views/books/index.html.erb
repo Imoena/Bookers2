@@ -3,6 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="sidebar_content">
+<!------------------ User info ----------------->
       <div class="col-xs-3">
         <h1>User info</h1>
           <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "noimage.jpg", size:'60x60' %>
@@ -23,6 +24,7 @@
             <% if @user.id == current_user.id %>
                   <div><%= link_to edit_user_path(@user) do %><button type="button" class="btn btn-default btn-block "><i class="glyphicon glyphicon-wrench"></i></button><% end %></div>
                 <% end %>
+<!------------------ New book ----------------->
          <h2>New book</h2>
          <%= form_for(@book) do |f| %>
            <% if @book.errors.any? %>
@@ -43,6 +45,7 @@
             <%= f.submit 'Create Book' %>
           <% end %>
         </div>
+<!------------------ Books ----------------->
           <div class="col-xs-9">
           <h2>Books</h2>
            <table class="table">
@@ -51,19 +54,27 @@
                   <th></th>
                   <th>Title</th>
                   <th>Opinion</th>
+                  <th></th>
+                  <th></th>
                   </tr>
                 </thead>
 
             <tbody>
               <% @books.each do |book| %>
-               <tr>
-                <td><%= link_to user_path(book.user) do %><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "noimage.jpg", size:'60x60' %><% end %></td>
+              <tr>
+                <td><%= link_to user_path(book.user) do %><%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "noimage.jpg", size:'60x60' %><% end %>
+                </td>
 
                 <td><%= link_to book_path(book.id) do %>
                 <%= book.title %>
-                <% end %></td>
+                <% end %>
+                </td>
                 <td><%= book.body %></td>
-               </tr>
+                <td></td>
+                <td>
+                  <div class="comment-count"><%= book.post_comments.count %>件コメント</div>
+                </td>
+              </tr>
               <% end %>
             </tbody>
           </table>

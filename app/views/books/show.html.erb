@@ -4,6 +4,7 @@
 <div class="container">
   <div class="row">
   <div class="sidebar_content">
+<!------------------------ User info -------------------------->
         <div class="col-xs-3">
           <h1>User info</h1>
           <%= attachment_image_tag @books.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "noimage.jpg", size:'60x60' %>
@@ -24,6 +25,7 @@
                 <% if @books.user.id == current_user.id %>
                   <div><%= link_to edit_user_path(current_user) do %><button type="button" class="btn btn-default btn-block" ><i class="glyphicon glyphicon-wrench"></i></button><% end %></div>
                 <% end %>
+<!------------------------ New book -------------------------->
       <h2>New book</h2>
         <%= form_for(@book) do |f| %>
           <h3>Title</h3>
@@ -34,6 +36,7 @@
         <% end %>
     </div>
   </div>
+<!------------------------ Book detail-------------------------->
     <div class="col-xs-9">
       <h2>Book detail</h2>
         <table class="table">
@@ -63,7 +66,33 @@
                 <% end %>
               </tr>
             </tbody>
-          </div>
-      </div>
-      </div>
+          </table>
+          <!-- ここにコメント本文 -->
+          <% @books.post_comments.each do |post_comment| %>
+              <div class="comment">
+                <div class="comment-avatar">
+                  <div class="avatar">
+                    <%= image_tag('sample-author1.jpg', style: "width: 60px; height: 60px;") %>
+                  </div>
+                </div>
+                <div class="comment-text">
+                  <div class="comment-author clearfix">
+                    <a href="#" class="link-author"><%= post_comment.user.name %></a>
+                  </div>
+                  <div class="comment-entry"><%= post_comment.comment %></div>
+                </div>
+              </div>
+          <% end %>
+          <!-- ここまで -->
+          <!-- ここにコメントフォーム -->
+          <%= form_for [@books, @post_comment] do |f| %>
+                <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+              </div>
+            </div>
+            <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+          <% end %>
+          <!-- ここまで -->
+    </div>
+    </div>
+  </div>
 </html>
