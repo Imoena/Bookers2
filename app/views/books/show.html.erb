@@ -60,6 +60,8 @@
                 </th>
                 <th><%= @books.title %></th>
                 <th><%= @books.body %></th>
+                <th></th>
+                <th>コメント数：<%= @books.post_comments.count %></th>
                   <% if @books.user == current_user %>
                   <th><%= link_to "Edit", edit_book_path(@books), class: 'btn btn-success'%> </th>
                   <th><%= link_to "Destroy", book_path(@books), class: 'btn btn-danger', method: :delete, "data-confirm" => "本当に消しますか?" %></th>
@@ -68,24 +70,22 @@
             </tbody>
           </table>
           <!-- ここにコメント本文 -->
-          <% @books.post_comments.each do |post_comment| %>
-              <div class="comment">
-                <div class="comment-avatar">
-                  <div class="avatar">
-                    <%= image_tag('sample-author1.jpg', style: "width: 60px; height: 60px;") %>
-                  </div>
-                </div>
-                <div class="comment-text">
-                  <div class="comment-author clearfix">
-                    <a href="#" class="link-author"><%= post_comment.user.name %></a>
-                  </div>
-                  <div class="comment-entry"><%= post_comment.comment %></div>
-                </div>
-              </div>
-          <% end %>
-          <!-- ここまで -->
+             <% @books.post_comments.each do |post_comment| %>
+                <div class="avatar">
+                 <%= attachment_image_tag post_comment.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "noimage.jpg", size:'60x60' %>
+               </div><br>
+               <div><%= post_comment.user.name %></div>
+                <div class="comment-entry"><%= post_comment.comment %></div>
+               <% if post_comment.user == current_user %>
+                 <div>
+                  <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete, class: "btn btn-danger pull-right" %>
+                 </div>
+                <% end %>
+             <% end %>
           <!-- ここにコメントフォーム -->
           <%= form_for [@books, @post_comment] do |f| %>
+            <div class="row">
+              <div class="col-xs-12">
                 <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
               </div>
             </div>
