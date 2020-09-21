@@ -42,6 +42,7 @@
                   <th></th>
                   <th>Title</th>
                   <th>Opinion</th>
+                  <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,7 @@
                     <th><%= link_to book_path(book.id) do %><%= book.title %></th>
                     <% end %>
                     <th><%= book.body %></th>
+                    <th>コメント数：<%= book.post_comments.count %></th>
                   <% end %>
                   </tr>
                 </tbody>
