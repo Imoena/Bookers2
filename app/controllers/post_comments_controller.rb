@@ -8,7 +8,6 @@ class PostCommentsController < ApplicationController
 	    redirect_to book_path(@books)
 	    else
 	     @book = Book.new
-	     # @books = Book.find(params[:id])
 	     @users = User.all
 	     @post_comment = PostComment.new
 	     render :'books/show'
